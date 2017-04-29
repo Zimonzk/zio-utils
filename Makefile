@@ -32,6 +32,8 @@ all: release
 clean: clean_release
 
 before_release: 
+	cmd /c if not exist $(OBJDIR_RELEASE) md $(OBJDIR_RELEASE)
+	cmd /c if not exist lib md lib
 
 after_release: 
 
