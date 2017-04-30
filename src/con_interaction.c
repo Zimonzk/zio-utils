@@ -1,4 +1,6 @@
+#define _NOMAIN_
 #include "zio-con.h"
+#undef _NOMAIN_
 
 extern short int debug;
 

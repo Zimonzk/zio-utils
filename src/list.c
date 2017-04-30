@@ -92,11 +92,14 @@ void intlist_resize(intlist* intl, size_t int_ammount)
 
         if((intl->integers != 0) && (intl->length > 0)) {
             mdebug("Rellocating intlist");
-            intl->allocated_length = intl->block_ints * ((int_ammount / intl->block_ints) + 1);
-            intl->integers = (int*) realloc(intl->integers, intl->allocated_length * sizeof(int));
+            intl->allocated_length = intl->block_ints * ((int_ammount / intl->block_ints) +
+                                     1);
+            intl->integers = (int*) realloc(intl->integers,
+                                            intl->allocated_length * sizeof(int));
         } else {
             mdebug("Allocating intlist");
-            intl->allocated_length = intl->block_ints * ((int_ammount / intl->block_ints) + 1);
+            intl->allocated_length = intl->block_ints * ((int_ammount / intl->block_ints) +
+                                     1);
             intl->integers = malloc(intl->allocated_length * sizeof(int));
         }
     }
@@ -110,3 +113,65 @@ void intlist_free(intlist* intl)
     intl->integers = 0;
     intl->length = 0;
 }
+
+/*pointer-list*/
+
+/*typeless list*/
+/*Don't use this on a alist with content, alist_free it first!*/
+void alist_zero(alist* ali)
+{
+    memset(ali, 0, sizeof(alist));
+}
+
+void alist_cat(alist* ali_dest, alist* ali_src)
+{
+    //TODO
+    /*size_t newsize = strlen(cstr) + 1;
+    if(kos->length != newsize) {
+        kostring_resize(kos, newsize);
+    }
+    memcpy(kos->cstring, cstr, newsize);*/
+}
+
+void alist_append(alist* ali, void* unit)
+{
+    size_t newsize = ali->length + 1;
+    size_t i = 0;
+
+    if(newsize > ali->allocated_length) {
+        alist_resize(ali, newsize);
+    }
+
+    while(i < ali->usize) {
+        mdebug("%i: char", *((char*) (unit + i)));
+        *((char*) (ali->start_ptr + newsize - 1 + i)) = *((char*) (unit + i));
+        i++;
+    }
+}
+
+void alist_resize(alist* ali, size_t length)
+{
+    if((length > ali->allocated_length)
+            || (length < ali->allocated_length - ali->block_units)) {
+
+        if((ali->start_ptr != 0) && (ali->length > 0)) {
+            ali->allocated_length = ali->block_units * ((length / ali->block_units) + 1);
+            ali->start_ptr = (void*) realloc(ali->start_ptr,
+                                            ali->allocated_length * ali->usize);
+        } else {
+            ali->allocated_length = ali->block_units * ((length / ali->block_units) + 1);
+            ali->start_ptr = (void*) malloc(ali->allocated_length * ali->usize);
+        }
+    }
+
+    ali->length = length;
+}
+
+void alist_free(alist* ali)
+{
+    free(ali->start_ptr);
+    ali->start_ptr = 0;
+    ali->length = 0;
+}
+
+
