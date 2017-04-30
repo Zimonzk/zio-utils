@@ -1,12 +1,13 @@
-#ifndef READER_H_INCLUDED
-#define READER_H_INCLUDED
+#ifndef ZIO_LIST_H_INCLUDED
+#define ZIO_LIST_H_INCLUDED
 
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#define _NOMAIN_
-#include "kontur/zim_con.h"
+#define _NOMAIN_ //necessary to avoid multiple definitions of "debug" from con_interaction
+#include "zio-con.h"
+#undef _NOMAIN_
+
 
 typedef struct kostring {
     size_t length;
@@ -36,7 +37,4 @@ void intlist_append(intlist*, int);
 void intlist_resize(intlist*, size_t);
 void intlist_free(intlist*);
 
-/* filestuff */
-void readlin(FILE*, kostring*);
-
-#endif // READER_H_INCLUDED
+#endif // ZIO_LIST_H_INCLUDED

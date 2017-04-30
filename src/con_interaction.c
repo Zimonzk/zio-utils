@@ -1,9 +1,4 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdarg.h>
-#include <stdlib.h>
-
-#include <windows.h>
+#include "zio-con.h"
 
 extern short int debug;
 

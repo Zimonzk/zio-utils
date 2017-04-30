@@ -25,7 +25,7 @@ DEP_RELEASE =
 OUT_RELEASE = lib\\libzio-utils.a
 SRC_RELEASE = src
 
-OBJ_RELEASE = $(OBJDIR_RELEASE)\\con_interaction.o $(OBJDIR_RELEASE)\\reader.o
+OBJ_RELEASE = $(OBJDIR_RELEASE)\\con_interaction.o $(OBJDIR_RELEASE)\\reader.o $(OBJDIR_RELEASE)\\list.o 
 
 all: release
 
@@ -45,8 +45,11 @@ out_release: before_release $(OBJ_RELEASE) $(DEP_RELEASE)
 $(OBJDIR_RELEASE)\\con_interaction.o: $(SRC_RELEASE)\\con_interaction.c
 	$(CC) $(CFLAGS_RELEASE) $(INC_RELEASE) -c $(SRC_RELEASE)\\con_interaction.c -o $(OBJDIR_RELEASE)\\con_interaction.o
 
-$(OBJDIR_RELEASE)\\reader.o: $(SRC_RELEASE)\\\\reader.c
+$(OBJDIR_RELEASE)\\reader.o: $(SRC_RELEASE)\\reader.c
 	$(CC) $(CFLAGS_RELEASE) $(INC_RELEASE) -c $(SRC_RELEASE)\\reader.c -o $(OBJDIR_RELEASE)\\reader.o
+
+$(OBJDIR_RELEASE)\\list.o: $(SRC_RELEASE)\\list.c
+	$(CC) $(CFLAGS_RELEASE) $(INC_RELEASE) -c $(SRC_RELEASE)\\list.c -o $(OBJDIR_RELEASE)\\list.o
 
 clean_release: 
 	cmd /c del /f $(OBJ_RELEASE) $(OUT_RELEASE)
